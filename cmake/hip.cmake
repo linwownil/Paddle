@@ -119,11 +119,13 @@ set(HIP_CLANG_FLAGS ${HIP_CXX_FLAGS})
 # Ask hcc to generate device code during compilation so we can use
 # host linker to link.
 list(APPEND HIP_HCC_FLAGS -fno-gpu-rdc)
-list(APPEND HIP_HCC_FLAGS --amdgpu-target=gfx906)
-list(APPEND HIP_HCC_FLAGS --amdgpu-target=gfx908)
+list(APPEND HIP_HCC_FLAGS --offload-arch=gfx906)
+list(APPEND HIP_HCC_FLAGS --offload-arch=gfx908)
+list(APPEND HIP_HCC_FLAGS --offload-arch=gfx1030)
 list(APPEND HIP_CLANG_FLAGS -fno-gpu-rdc)
-list(APPEND HIP_CLANG_FLAGS --amdgpu-target=gfx906)
-list(APPEND HIP_CLANG_FLAGS --amdgpu-target=gfx908)
+list(APPEND HIP_CLANG_FLAGS --offload-arch=gfx906)
+list(APPEND HIP_CLANG_FLAGS --offload-arch=gfx908)
+list(APPEND HIP_CLANG_FLAGS --offload-arch=gfx1030)
 
 if(HIP_COMPILER STREQUAL clang)
   set(hip_library_name amdhip64)

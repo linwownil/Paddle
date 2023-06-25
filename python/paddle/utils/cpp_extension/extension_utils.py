@@ -429,7 +429,7 @@ def get_rocm_arch_flags(cflags):
     """
     For ROCm platform, amdgpu target should be added for HIPCC.
     """
-    cflags = cflags + ['-fno-gpu-rdc', '-amdgpu-target=gfx906']
+    cflags = cflags + ['-fno-gpu-rdc', "--offload-arch=gfx906", "--offload-arch=gfx908", "--offload-arch=gfx1030"]
     return cflags
 
 

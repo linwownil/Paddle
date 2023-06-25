@@ -255,7 +255,7 @@ bool CUDADeviceCode::Compile(bool include_path) {
   auto* dev_ctx = reinterpret_cast<phi::GPUContext*>(
       DeviceContextPool::Instance().Get(place_));
   int compute_capability = dev_ctx->GetComputeCapability();
-  std::vector<const char*> options = {"-std=c++11", "--amdgpu-target=gfx906"};
+  std::vector<const char*> options = {"-std=c++11", "--offload-arch=gfx906", "--offload-arch=gfx908", "--offload-arch=gfx1030"};
   std::string include_option;
   if (include_path) {
     std::string cuda_include_path = FindCUDAIncludePath();
