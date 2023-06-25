@@ -2,14 +2,23 @@
 # Use rocm-terminal base image for both rocm environment
 # When you modify it, please be aware of rocm version
 #
-# Build: ROCM 4.0.1
+# Build: ROCM 5.0.2
 # cd Paddle/tools/dockerfile
 # docker build -f Dockerfile.rocm  \
-#        -t paddlepaddle/paddle-centos-rocm401-dev:latest .
+#        -t paddlepaddle/paddle-centos-rocm502-dev:latest .
 #
+# First container run
 # docker run -it --device=/dev/kfd --device=/dev/dri \
 # --security-opt seccomp=unconfined --group-add video \
-# paddlepaddle/paddle-centos-rocm401-dev:latest /bin/bash
+# paddlepaddle/paddle-centos-rocm502-dev:latest /bin/bash
+#
+# To access Repository cloned to host machine, add the docker -v HOST:CONTAINER flag
+#
+# Run container again
+# docker run -it --entrypoint /bin/bash --device=/dev/kfd --device=/dev/dri \
+# --security-opt seccomp=unconfined --group-add video \
+# paddlepaddle/paddle-centos-rocm502-dev:latest
+
 
 FROM centos:7.8.2003
 MAINTAINER PaddlePaddle Authors <paddle-dev@baidu.com>
@@ -129,13 +138,13 @@ RUN cd /opt && wget https://paddle-ci.gz.bcebos.com/ccache-3.7.9.tar.gz && \
 RUN yum install -y kmod wget openblas-devel epel-release
 RUN echo "[ROCm]" > /etc/yum.repos.d/rocm.repo && \
     echo "name=ROCm" >> /etc/yum.repos.d/rocm.repo && \
-    echo "baseurl=http://repo.radeon.com/rocm/yum/5.3/main" >> /etc/yum.repos.d/rocm.repo && \
+    echo "baseurl=http://repo.radeon.com/rocm/yum/5.0.2" >> /etc/yum.repos.d/rocm.repo && \
     echo "enabled=1" >> /etc/yum.repos.d/rocm.repo && \
     echo "gpgcheck=0" >> /etc/yum.repos.d/rocm.repo
 
 RUN echo "[AMDGPU]" > /etc/yum.repos.d/amdgpu.repo && \
     echo "name=AMDGPU" >> /etc/yum.repos.d/amdgpu.repo && \
-    echo "baseurl=http://repo.radeon.com/amdgpu/5.3/rhel/7.9/main/x86_64" >> /etc/yum.repos.d/amdgpu.repo && \
+    echo "baseurl=http://repo.radeon.com/amdgpu/21.50.2/rhel/7.9/main/x86_64" >> /etc/yum.repos.d/amdgpu.repo && \
     echo "enabled=1" >> /etc/yum.repos.d/amdgpu.repo && \
     echo "gpgcheck=0" >> /etc/yum.repos.d/amdgpu.repo
 
